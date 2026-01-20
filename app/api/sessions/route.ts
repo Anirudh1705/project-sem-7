@@ -65,6 +65,7 @@ export async function POST(request: NextRequest) {
         completionTokens: 0,
         totalTokens: 0,
         estimatedCost: 0,
+        carbonEmission: 0,
       },
     });
 

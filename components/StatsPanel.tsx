@@ -1,6 +1,7 @@
 'use client';
 
 import { TokenStats } from '@/lib/types';
+import { formatCarbonEmission } from '@/lib/gemini';
 
 interface StatsPanelProps {
   stats: TokenStats;
@@ -26,7 +27,13 @@ export default function StatsPanel({ stats }: StatsPanelProps) {
         <div className="bg-orange-50 p-3 rounded-lg">
           <p className="text-xs text-gray-600">Est. Cost</p>
           <p className="text-lg font-bold text-orange-600">
-            ${stats.estimatedCost.toFixed(6)}
+            ₹{stats.estimatedCost.toFixed(4)}
+          </p>
+        </div>
+        <div className="bg-red-50 p-3 rounded-lg col-span-2">
+          <p className="text-xs text-gray-600">Carbon Footprint</p>
+          <p className="text-lg font-bold text-red-600">
+            {formatCarbonEmission(stats.carbonEmission)}
           </p>
         </div>
       </div>

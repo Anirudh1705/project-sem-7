@@ -1,6 +1,7 @@
 'use client';
 
 import { ChatSession } from '@/lib/types';
+import { formatCarbonEmission } from '@/lib/gemini';
 
 interface SidebarProps {
   sessions: ChatSession[];
@@ -50,9 +51,14 @@ export default function Sidebar({
                     <p className="text-xs text-gray-400 mt-1">
                       {session.messages.length} messages
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">
-                      ${session.stats.estimatedCost.toFixed(6)}
-                    </p>
+                    <div className="flex justify-between items-center mt-1">
+                      <p className="text-xs text-gray-500">
+                        ₹{session.stats.estimatedCost.toFixed(4)}
+                      </p>
+                      <p className="text-xs text-red-400">
+                        {formatCarbonEmission(session.stats.carbonEmission)}
+                      </p>
+                    </div>
                   </div>
                   <button
                     onClick={(e) => {

@@ -36,6 +36,7 @@ export function createNewSession(title: string = 'New Chat'): ChatSession {
       completionTokens: 0,
       totalTokens: 0,
       estimatedCost: 0,
+      carbonEmission: 0,
     },
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -54,7 +55,8 @@ export function exportChatAsMarkdown(session: ChatSession): string {
   markdown += `- **Total Tokens:** ${session.stats.totalTokens}\n`;
   markdown += `- **Prompt Tokens:** ${session.stats.promptTokens}\n`;
   markdown += `- **Completion Tokens:** ${session.stats.completionTokens}\n`;
-  markdown += `- **Estimated Cost:** $${session.stats.estimatedCost.toFixed(6)}\n\n`;
+  markdown += `- **Estimated Cost:** ₹${session.stats.estimatedCost.toFixed(4)}\n`;
+  markdown += `- **Carbon Emission:** ${(session.stats.carbonEmission || 0).toFixed(6)}g CO₂\n\n`;
   markdown += `## Conversation\n\n`;
 
   session.messages.forEach((msg) => {

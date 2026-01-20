@@ -10,6 +10,7 @@ export interface TokenStats {
   completionTokens: number;
   totalTokens: number;
   estimatedCost: number;
+  carbonEmission: number; // in grams of CO2
 }
 
 export interface ChatSession {

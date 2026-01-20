@@ -9,7 +9,7 @@ import ChatWindow from '@/components/ChatWindow';
 import InputBox from '@/components/InputBox';
 import StatsPanel from '@/components/StatsPanel';
 import ExportMenu from '@/components/ExportMenu';
-import { calculateCost } from '@/lib/gemini';
+import { calculateCost, calculateCarbonEmission } from '@/lib/gemini';
 
 export default function Home() {
   const { user, token, login, register, logout, isLoading: authLoading } = useAuth();
@@ -38,9 +38,17 @@ export default function Home() {
 
       if (response.ok) {
         const data = await response.json();
-        setSessions(data);
-        if (data.length > 0) {
-          setActiveSessionId(data[0]._id);
+        // Migrate sessions that don't have carbonEmission field
+        const migratedSessions = data.map((session: any) => ({
+          ...session,
+          stats: {
+            ...session.stats,
+            carbonEmission: session.stats.carbonEmission || 0,
+          },
+        }));
+        setSessions(migratedSessions);
+        if (migratedSessions.length > 0) {
+          setActiveSessionId(migratedSessions[0]._id);
         }
       }
     } catch (error) {
@@ -160,6 +168,7 @@ export default function Home() {
       };
 
       const cost = calculateCost(data.promptTokens, data.completionTokens);
+      const carbonEmission = calculateCarbonEmission(data.promptTokens, data.completionTokens);
 
       const finalSession = {
         ...updatedSession,
@@ -170,6 +179,7 @@ export default function Home() {
             updatedSession.stats.completionTokens + data.completionTokens,
           totalTokens: updatedSession.stats.totalTokens + data.totalTokens,
           estimatedCost: updatedSession.stats.estimatedCost + cost,
+          carbonEmission: (updatedSession.stats.carbonEmission || 0) + carbonEmission,
         },
       };
 

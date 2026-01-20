@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { calculateCost } from '@/lib/gemini';
+import { calculateCost, calculateCarbonEmission } from '@/lib/gemini';
 import { connectDB, db } from '@/lib/db-simple';
 import { getTokenFromRequest, verifyToken } from '@/lib/jwt';
 
@@ -72,6 +72,7 @@ export async function POST(request: NextRequest) {
     const promptTokens = countResult.totalTokens;
     const completionTokens = Math.ceil(text.split(' ').length * 1.3);
     const cost = calculateCost(promptTokens, completionTokens);
+    const carbonEmission = calculateCarbonEmission(promptTokens, completionTokens);
 
     // Save to database if sessionId provided
     if (sessionId) {
@@ -102,6 +103,7 @@ export async function POST(request: NextRequest) {
         chatSession.stats.completionTokens += completionTokens;
         chatSession.stats.totalTokens += promptTokens + completionTokens;
         chatSession.stats.estimatedCost += cost;
+        chatSession.stats.carbonEmission += carbonEmission;
         chatSession.updatedAt = new Date();
 
         // Save the updated session
@@ -115,6 +117,7 @@ export async function POST(request: NextRequest) {
       completionTokens,
       totalTokens: promptTokens + completionTokens,
       cost,
+      carbonEmission,
     });
   } catch (error) {
     console.error('Chat API error:', error);
