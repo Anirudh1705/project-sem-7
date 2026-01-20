@@ -19,7 +19,7 @@ export default function ChatWindow({ messages, isLoading }: ChatWindowProps) {
     <div className="flex-1 overflow-y-auto bg-gray-50 p-4 space-y-4">
       {messages.length === 0 ? (
         <div className="flex items-center justify-center h-full text-gray-400">
-          <p>Start a conversation with Gemini AI</p>
+          <p>Start a conversation with Testbot AI</p>
         </div>
       ) : (
         messages.map((msg) => (

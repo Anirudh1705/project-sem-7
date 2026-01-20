@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Gemini Chatbot now includes:
+The Testbot application now includes:
 - **JWT Authentication** - Secure user login/registration
 - **MongoDB Integration** - Persistent chat storage per user
 - **User Sessions** - Each user has their own chat history
@@ -46,10 +46,10 @@ NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
 
 # MongoDB Connection String
 # For local MongoDB:
-MONGODB_URI=mongodb://localhost:27017/gemini-chatbot
+MONGODB_URI=mongodb://localhost:27017/testbot
 
 # For MongoDB Atlas (cloud):
-# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/gemini-chatbot
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/testbot
 
 # JWT Secret (change this in production!)
 JWT_SECRET=your-secret-key-change-in-production
@@ -244,7 +244,7 @@ Response:
 **Solution:**
 1. Ensure MongoDB is running
 2. Check connection string in `.env`
-3. For local: `mongodb://localhost:27017/gemini-chatbot`
+3. For local: `mongodb://localhost:27017/testbot`
 4. For Atlas: Verify username, password, and cluster name
 
 ### JWT Token Expired
@@ -282,7 +282,7 @@ Response:
 
 2. **Use MongoDB Atlas** (not local)
    ```env
-   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/gemini-chatbot
+   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/testbot
    ```
 
 3. **Set environment variables** on your hosting platform:

@@ -1,6 +1,6 @@
 import { ChatSession, Message, TokenStats } from './types';
 
-const STORAGE_KEY = 'gemini_chat_sessions';
+const STORAGE_KEY = 'testbot_chat_sessions';
 
 export function getSessions(): ChatSession[] {
   if (typeof window === 'undefined') return [];

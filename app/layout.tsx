@@ -3,8 +3,8 @@ import { AuthProvider } from '@/lib/auth-context';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Gemini Chat',
-  description: 'Chat with Google Gemini AI with token tracking and cost analysis',
+  title: 'Testbot',
+  description: 'AI-powered chat application with token tracking, cost analysis, and carbon emission monitoring',
 };
 
 export default function RootLayout({
